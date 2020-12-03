@@ -1,29 +1,14 @@
 // run when page loads
 chrome.storage.sync.get(null, function(wordsDict) {
-  console.log(wordsDict['wordsList']);
-  var parentArray = wordsDict['wordsList'];
+  var parentArray = [];
+  if ( wordsDict['wordsList'] !== "undefined" ) {
+    parentArray = wordsDict['wordsList'];
+  }
   for(var i = 0; i < parentArray.length; i++){
     var fromWord = parentArray[i][0], toWord = parentArray[i][1];
     console.log(fromWord, toWord);
-    // var ful = document.body.innerHTML;
-    console.log(document.title);
-    document.body.innerHTML = document.body.innerHTML.replace(fromWord, toWord);
-    console.log("done");
-    // console.log(ful == document.body.innerHTML);
+    document.body.innerHTML = document.body.innerHTML.replace(new RegExp(fromWord, 'g'), toWord);
   }
-  // for(item in wordsDict['wordsList']){
-  //   // fromWord = item[0]
-  //   // toWord = item[1]
-  //   // console.log(fromWord, toWord);
-  //   console.log(JSON.stringify(item[0][0]));
-  //   // document.body.innerHTML = document.body.innerHTML.replace(fromWord, toWord);
-  // }
-  // console.log(typeof result.key);
-  // console.log(object)
-  // console.log(result);
-  // document.body.innerHTML = document.body.innerHTML.replace('extension', '昨');
-  // document.body.innerHTML = "This is it."
-  // console.log(document.body.innerHTML);
 });
 
 chrome.runtime.onMessage.addListener(
@@ -43,9 +28,15 @@ chrome.runtime.onMessage.addListener(
 
 function addWord(fromWord, toWord) {
   console.log(fromWord, toWord);
-  // var tempDict = {fromWord: toWord}
-  chrome.storage.sync.set({wordsList: [['hemmer', '昨日'], ['card', '日'], ['extensions', '昨'], ['now', '日']]}, function() {
-    // console.log('Value is set to ' + value);
+  var allWords = [];
+  chrome.storage.sync.get(null, function(wordsDict) {
+    if (wordsDict['wordsList'] !== "undefined" ) {
+      allWords = wordsDict['wordsList'];
+      allWords.push([fromWord, toWord]);
+    }
+  });
+  clearStorage();
+  chrome.storage.sync.set({wordsList: allWords}, function() {
   });
 }
 
