@@ -1,19 +1,19 @@
-// run when page loads
-chrome.storage.sync.get(null, function(wordsDict) {
-  var parentArray = [];
-  if ( wordsDict['wordsList'] !== "undefined" ) {
-    parentArray = wordsDict['wordsList'];
+// run when page loads, substute the words
+chrome.storage.sync.get(null, (wordsDict) => {
+  var parentArray = wordsDict['wordsList'];
+  if ( parentArray === undefined ) {
+    parentArray = []
   }
   for(var i = 0; i < parentArray.length; i++){
     var fromWord = parentArray[i][0], toWord = parentArray[i][1];
     console.log(fromWord, toWord);
-    document.body.innerHTML = document.body.innerHTML.replace(new RegExp(fromWord, 'g'), toWord);
+    document.body.innerHTML = document.body.innerHTML.replace(new RegExp(fromWord, 'gi'), toWord);
   }
 });
 
+// listen for messages from the popup
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    // console.log(request.fromWord, request.toWord);
+  (request, sender, sendResponse) => {
     console.log(request.type);
     if (request.type == "addWords"){
       addWord(request.fromWord, request.toWord);
@@ -24,39 +24,59 @@ chrome.runtime.onMessage.addListener(
     else if (request.type == "displayAll"){
       displayAll()
     }
-  });
+});
 
-function addWord(fromWord, toWord) {
-  console.log(fromWord, toWord);
-  var allWords = [];
-  chrome.storage.sync.get(null, function(wordsDict) {
-    if (wordsDict['wordsList'] !== "undefined" ) {
-      allWords = wordsDict['wordsList'];
-      allWords.push([fromWord, toWord]);
+async function addWord(fromWord, toWord) {
+  // fetch allWords using chrome storage api
+  var allWords = await getStorageValue("wordsList");
+  allWords = allWords["wordsList"];
+  // clear all words
+  await clearStorage();
+  // set new list of words (made using previous words and current input from popus)
+  await setStorageValue(allWords, fromWord, toWord);
+}
+
+async function getStorageValue(key) {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.sync.get(key, (value) => {
+        resolve(value);
+      })
     }
-  });
-  clearStorage();
-  chrome.storage.sync.set({wordsList: allWords}, function() {
+    catch (ex) {
+      reject(ex);
+    }
   });
 }
 
-function clearStorage() {
-  chrome.storage.sync.clear();
+async function setStorageValue(allWords, fromWord, toWord) {
+  new Promise((resolve, reject) => {
+    if ( allWords === undefined ) {
+      allWords = []
+    }
+    allWords = [...allWords, [fromWord, toWord]]
+    chrome.storage.sync.set({wordsList: allWords});
+  });
+}
+
+async function clearStorage() {
+  new Promise((resolve, reject) => {
+    chrome.storage.sync.clear();
+  });
 }
 
 // for debugging
-function displayAll() {
+async function displayAll() {
   // run when page loads
-  console.log("displayAll fired");
-  chrome.storage.sync.get(null, function(wordsDict) {
-    console.log(wordsDict['wordsList']);
-    var parentArray = wordsDict['wordsList'];
-    for(var i = 0; i < parentArray.length; i++){
-      var fromWord = parentArray[i][0], toWord = parentArray[i][1];
-      console.log(fromWord, toWord);
-    }
-  });
+  var allWords = await getStorageValue("wordsList");
+  var parentArray = allWords["wordsList"];
+  if ( parentArray === undefined ) {
+    parentArray = [];
+  }
+  for(var i = 0; i < parentArray.length; i++){
+    var fromWord = parentArray[i][0], toWord = parentArray[i][1];
+    console.log(fromWord, toWord);
+  }
 }
 
-// console.log(typeof document.body.textContent);
-// document.body.innerHTML = document.body.innerHTML.replace('online', '昨日');
+// TODO: display all currently logs in console, print it in new page or in the popup.
