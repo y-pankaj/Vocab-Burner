@@ -1,0 +1,45 @@
+body, html {
+  padding: 0;
+  min-width: 350px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0px auto;
+}
+
+input:last-child {
+  float: right;
+}
+
+.word-input {
+  width: 45%;
+  margin: 0 auto;
+}
+
+.submit-button {
+  width: 60%;
+  display: block;
+  margin: 0px auto;
+}
+
+.button-margin {
+  margin-top: 1em;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.middle-element {
+  display: inline-block;
+  width: calc(20%-16px);
+}

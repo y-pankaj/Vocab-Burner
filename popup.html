@@ -2,14 +2,21 @@
   <head>
     <title>Add words</title>
     <script src="popup.js"></script>
+    <link rel="stylesheet" href="popup.css">
   </head>
   <body>
-      <label for="fromWord">Word to replace</label>
-      <input type="text" id="fromWord" name="fromWord"><br><br>
-      <label for="toWord">Replaced Word</label>
-      <input type="text" id="toWord" name="toWord"><br><br>
-      <button id='addWord'>Add word</button>
-      <button id='clearWords'>Clear Words</button>
-      <button id='displayWords'>Display Words</button>
+    <div class="container">
+      <div class="input-container">
+        <input class="word-input" type="text" id="fromWord" name="fromWord" placeholder="English Word">
+        <div class="middle-element">
+          <strong><span>=></span></strong>
+        </div>
+        <input class="word-input" type="text" id="toWord" name="toWord" placeholder="Foreign Word">
+      </div>
+      <button class="submit-button button-margin" id='addWord'>Add word to Vocabulary</button>
+    </div>
+      <hr/>
+      <button class="submit-button" id='clearWords'>Reset your Vocabulary</button> <hr/>
+      <button class="submit-button" id='displayWords'>Display your Vocabulary</button>
   </body>
 </html>
