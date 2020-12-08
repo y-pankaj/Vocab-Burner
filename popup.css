@@ -24,10 +24,28 @@ input:last-child {
   width: 60%;
   display: block;
   margin: 0px auto;
+  padding: 2px;
+  color: #000000;
+  background-color: #ffbb00;
+  border: 1px solid #ffbb00;
+  border-radius: 5px;
+  box-shadow: 0px 7px 0px #FF8C00;
+}
+.submit-button:active {
+  background-color: #ff8c00ef;
+  box-shadow: 0 4px #ff8c00a9;
+  transform: translateY(4px);
 }
 
 .button-margin {
   margin-top: 1em;
+  width: 60%;
+  margin-left: auto;
+}
+
+img {
+  position: relative;
+  left : 2px;
 }
 
 hr {
@@ -42,4 +60,8 @@ hr {
 .middle-element {
   display: inline-block;
   width: calc(20%-16px);
+}
+
+.set-font {
+  font-size: 13px;
 }
