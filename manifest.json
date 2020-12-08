@@ -2,15 +2,14 @@
   "name": "Vocab Burner",
   "description" : "This extension helps you remember the vocabulary that you have learnt by substuting a word in english to its equivalent word in japanese",
   "version": "0.0",
+  "icons": { "128": "icons/flame.png" },
   "manifest_version": 2,
   "permissions": [
     "contextMenus",
     "storage"
   ],
   "browser_action": {
-    "default_icon": {
-      "16": "images/icon16.jpg"
-    },
+    "default_icon": { "128": "icons/flame.png" },
     "default_title": "Learn Japanese",
     "default_popup": "popup.html"
   },
