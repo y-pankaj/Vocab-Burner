@@ -6,7 +6,7 @@ chrome.storage.sync.get(null, (wordsDict) => {
   }
   for(var i = 0; i < parentArray.length; i++){
     var fromWord = parentArray[i][0], toWord = parentArray[i][1];
-    console.log(fromWord, toWord);
+    // console.log(fromWord, toWord);
     // document.body.innerHTML = document.body.innerHTML.replace(new RegExp(fromWord, 'gi'), toWord);
     findAndReplaceDOMText( document.body, {
       preset: 'prose',
@@ -19,7 +19,7 @@ chrome.storage.sync.get(null, (wordsDict) => {
 // listen for messages from the popup
 chrome.runtime.onMessage.addListener(
   (request, sender, sendResponse) => {
-    console.log(request.type);
+    // console.log(request.type);
     if (request.type == "addWords"){
       addWord(request.fromWord, request.toWord);
       location.reload();
@@ -31,7 +31,25 @@ chrome.runtime.onMessage.addListener(
     else if (request.type == "displayAll"){
       displayAll()
     }
+    var vocabSize = 0;
+    getVocabSize()
+      .then( response => {
+        sendResponse({vocabSize: response})
+      }).catch( err => {
+        sendResponse({vocabSize: 0})
+      })
+    return true;
 });
+
+async function getVocabSize() {
+  var allWords = await getStorageValue("wordsList");
+  allWords = allWords["wordsList"];
+  if ( allWords === undefined ) {
+    allWords = []
+  }
+  // console.log(allWords.length);
+  return allWords.length
+}
 
 async function addWord(fromWord, toWord) {
   // fetch allWords using chrome storage api

@@ -5,6 +5,17 @@
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
+    <div class="header">
+      <div class="header-logo">
+        <img src="icons/flame.png" width="30">
+        <h1>Vocab Burner</h1>
+      </div>
+      <!-- <div class="vocab-size-div">
+        <p class="vocab-size">
+          Vocabulary size :
+        </p>
+      </div> -->
+    </div>
     <div class="container">
       <div class="input-container">
         <input class="word-input" type="text" id="fromWord" name="fromWord" placeholder="English Word">
@@ -18,9 +29,18 @@
         <span class="set-font">Add word to Vocabulary</span>
         <!-- <img src="images/loading.svg" width="13" height="13"> -->
       </button>
-    </div>
+    
       <hr/>
       <button class="submit-button" id='clearWords'>Reset your Vocabulary</button> <hr/>
       <button class="submit-button" id='displayWords'>Display your Vocabulary</button>
+    </div>
+    <div class="footer">
+      <p>
+        <strong>
+          Stats |
+        </strong>
+        <span class="vocab-size"> Vocabulary size : 0</span>
+      </p>
+    </div>
   </body>
 </html>
