@@ -1,7 +1,7 @@
 {
   "name": "Vocab Burner",
-  "description" : "This extension helps you remember the vocabulary that you have learnt by substuting a word in english to its equivalent word in japanese",
-  "version": "0.0",
+  "description" : "A chrome extension to asist you in memorising foreign vocabulary/words.",
+  "version": "0.1",
   "icons": { "128": "icons/flame.png" },
   "manifest_version": 2,
   "permissions": [
@@ -15,7 +15,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://en.wikipedia.org/*"],
+      "matches": ["<all_urls>", "*://en.wikipedia.org/*"],
       "run_at": "document_idle",
       "all_frames": true,
       "js": ["contentScript.js"]
