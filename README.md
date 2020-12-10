@@ -1,5 +1,5 @@
 # Vocab Burner Chrome Extension
-A chrome extension to asist you in memorising foreign vocabulary/words. <br>
+A chrome extension to asist you in memorising foreign vocabulary/words. <br><br>
 <img src="images/readme/wiki-text.png">
 
 ### Installation Instruction ( Chrome )
@@ -10,3 +10,6 @@ A chrome extension to asist you in memorising foreign vocabulary/words. <br>
 
 ## Usage
 <img src="images/readme/add-word.png">
+Add a word and it's corresponding translation in the vocabulary and it would replace it's occurance in the websites you visit to strengthen your vacab.<br>
+<br>
+You can also reset and display your vocab ( as of now in the console ).
