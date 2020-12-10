@@ -13,3 +13,6 @@ A chrome extension to asist you in memorising foreign vocabulary/words. <br><br>
 Add a word and it's corresponding translation in the vocabulary and it would replace it's occurance in the websites you visit to strengthen your vacab.<br>
 <br>
 You can also reset and display your vocab ( as of now in the console ).
+
+## LICENSE
+[MIT](/LICENSE)
